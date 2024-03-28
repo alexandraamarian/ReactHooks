@@ -1,10 +1,14 @@
-import React from 'react';
-import './App.css';
-import SideBar from '../components/SideBar/SideBar';
+import React from "react";
+import "./App.css";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
+import ReactHooksApp from "./ReactHooksApp";
 
 function App() {
   return (
-    <SideBar/>
+    <Provider store={store}>
+      <ReactHooksApp />
+    </Provider>
   );
 }
 
