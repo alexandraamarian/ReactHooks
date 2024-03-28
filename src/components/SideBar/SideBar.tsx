@@ -24,7 +24,7 @@ function SidebarComponent() {
   return (
     <Sidebar
       aria-label="Sidebar with content separator example"
-      className="w-72 h-screen rounded-none border-none"
+      className="w-72 h-auto rounded-none border-none"
     >
       <Sidebar.Items>
         <Sidebar.ItemGroup>

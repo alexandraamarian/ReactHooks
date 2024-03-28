@@ -12,9 +12,9 @@ function ReactHooksApp() {
   console.log(isUseStateClicked);
   return (
     <div className="flex flex-row">
-      <SidebarComponent />
+          <SidebarComponent />
 
-      <div className="w-screen">
+      <div className="w-screen overflow-auto">
         <Header />
         {isUseStateClicked && <UseState/>}
       </div>
