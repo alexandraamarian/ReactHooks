@@ -1,28 +1,32 @@
 import React, { useState, useEffect, useRef } from "react";
 import hljs from "highlight.js/lib/core";
-import javascript from "highlight.js/lib/languages/javascript";
+import typescript from "highlight.js/lib/languages/typescript";
 import "highlight.js/styles/atom-one-dark.css";
+
+hljs.registerLanguage("typescript", typescript);
 
 function UseEffect() {
   const codeRefDeclare = useRef<HTMLElement>(null);
   const codeRefReference = useRef<HTMLElement>(null);
-  const [text, setText] = useState("You clicked 0 times");
+  const codeRefPlayground = useRef<HTMLElement>(null);
+  const [count, setCount] = useState(0);
+
 
   useEffect(() => {
     if (codeRefDeclare.current) {
-      hljs.highlightBlock(codeRefDeclare.current);
+      hljs.highlightElement(codeRefDeclare.current);
     }
     if (codeRefReference.current) {
-      hljs.highlightBlock(codeRefReference.current);
+      hljs.highlightElement(codeRefReference.current);
+    }
+    if (codeRefPlayground.current) {
+      hljs.highlightElement(codeRefPlayground.current);
     }
   }, []);
 
-  hljs.registerLanguage("javascript", javascript);
-
-  const [count, setCount] = useState(0);
-
   useEffect(() => {
-    setText(`You clicked ${count} times`);
+    if (count === 0) return;
+    alert(`You clicked ${count} time/s`);
   }, [count]);
 
   return (
@@ -33,65 +37,39 @@ function UseEffect() {
         component with an external system.
       </p>
 
-      {/* Playground Section */}
       <div className="mb-8 mt-8">
         <h2 className="font-bold text-xl text-gray-800 mb-4">Playground</h2>
         <p className="text-gray-700 mb-2">
           This example demonstrates sending an alert message when the button is
           clicked:
         </p>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 mb-4">
           <button
             onClick={() => {
-              setCount((prevCount) => prevCount + 1);
-              alert(`You clicked ${count} time/s`);
+              setCount(count + 1);
             }}
             className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
           >
             Increase
           </button>
         </div>
-      </div>
+        <pre className="rounded-md p-2 bg-gray-100">
+          <code ref={codeRefPlayground} className="language-typescript">
+            {`import React, { useState, useEffect } from "react";
 
-      {/* Declaration Example */}
-      <div className="mb-8">
-        <h2 className="font-bold text-xl text-gray-800 mb-4">
-          Declaration example
-        </h2>
-
-        <pre className="rounded-md p-4 bg-gray-100">
-          <code ref={codeRefDeclare}>{`useEffect(setup, dependencies?)`}</code>
-        </pre>
-      </div>
-
-      {/* Reference Example */}
-      <div className="mb-8">
-        <h2 className="font-bold text-xl text-gray-800 mb-4">
-          Reference Example
-        </h2>
-        <p className="text-gray-700 mb-2">
-          Call <strong>useEffect</strong> at the top level of your component to
-          declare an Effect:
-        </p>
-        <pre className="rounded-md p-4 bg-gray-100">
-          <code ref={codeRefReference}>
-            {`
-import React, { useState, useEffect } from 'react';
-
-function Example() {
+function UseEffectExample() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    document.title = \`You clicked \${count} times\`;
+    alert(\`You clicked \${count} time/s\`);
   }, [count]);
 
   return (
     <div>
-      <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>
-        Click me
+        Increase
       </button>
-      
+      <span>{\`You clicked \${count} times\`}</span>
     </div>
   );
 }`}
@@ -99,35 +77,29 @@ function Example() {
         </pre>
       </div>
 
-      {/* Parameters Section */}
+      <div className="mb-8">
+        <h2 className="font-bold text-xl text-gray-800 mb-4">
+          Declaration example
+        </h2>
+        <pre className="rounded-md p-4 bg-gray-100">
+          <code ref={codeRefDeclare} className="language-typescript">
+            {`useEffect(setup, dependencies?)`}
+          </code>
+        </pre>
+      </div>
+
       <div className="mb-8">
         <h2 className="font-bold text-xl text-gray-800 mb-4">Parameters</h2>
         <ul className="list-disc pl-6 text-gray-700">
           <li>
-            <strong>setup: </strong> The function with your Effect’s logic. Your
-            setup function may also optionally return a cleanup function. When
-            your component is added to the DOM, React will run your setup
-            function. After every re-render with changed dependencies, React
-            will first run the cleanup function (if you provided it) with the
-            old values, and then run your setup function with the new values.
-            After your component is removed from the DOM, React will run your
-            cleanup function.
+            <strong>setup: </strong> The function with your Effect’s logic. Your setup function may also optionally return a cleanup function. When your component is added to the DOM, React will run your setup function. After every re-render with changed dependencies, React will first run the cleanup function (if you provided it) with the old values, and then run your setup function with the new values. After your component is removed from the DOM, React will run your cleanup function.
           </li>
           <li>
-            <strong>optional dependencies: </strong> The list of all reactive
-            values referenced inside of the setup code. Reactive values include
-            props, state, and all the variables and functions declared directly
-            inside your component body. If your linter is configured for React,
-            it will verify that every reactive value is correctly specified as a
-            dependency. The list of dependencies must have a constant number of
-            items and be written inline like [dep1, dep2, dep3]. React will
-            compare each dependency with its previous value using the Object.is
-            comparison. If you omit this argument, your Effect will re-run after
-            every re-render of the component.
+            <strong>optional dependencies: </strong> The list of all reactive values referenced inside of the setup code. Reactive values include props, state, and all the variables and functions declared directly inside your component body. If your linter is configured for React, it will verify that every reactive value is correctly specified as a dependency. The list of dependencies must have a constant number of items and be written inline like [dep1, dep2, dep3]. React will compare each dependency with its previous value using the Object.is comparison. If you omit this argument, your Effect will re-run after every re-render of the component.
           </li>
         </ul>
       </div>
-      {/* Returns Section */}
+      
       <div>
         <h2 className="font-bold text-xl text-gray-800 mb-4">Returns</h2>
         <p className="text-gray-700 mb-2">
@@ -135,7 +107,6 @@ function Example() {
         </p>
       </div>
 
-      {/* Caveats Section */}
       <div>
         <h2 className="font-bold text-xl text-gray-800 mb-4 mt-4">Caveats</h2>
         <ul className="list-disc pl-6 text-gray-700">

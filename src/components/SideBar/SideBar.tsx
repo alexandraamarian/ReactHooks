@@ -5,7 +5,7 @@ import { FaRegUser } from "react-icons/fa6";
 import { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store";
-import { onSetUseEffectActive, onSetUseStateActive } from "../../store/slices/sidebar";
+import { onSetUseCallbackActive, onSetUseEffectActive, onSetUseRefActive, onSetUseStateActive } from "../../store/slices/sidebar";
 
 function SidebarComponent() {
   const isUseStateClicked = useSelector(
@@ -14,17 +14,41 @@ function SidebarComponent() {
   const isUseEffectClicked = useSelector(
     (state: RootState) => state.sidebar.isUseEffectClicked
   );
+  const isUseCallbackClicked = useSelector(
+    (state: RootState) => state.sidebar.isUseCallbackClicked
+  );
+  const isUseRefClicked = useSelector(
+    (state: RootState) => state.sidebar.isUseRefClicked
+  );
+
   const dispatch = useDispatch();
 
   const handleUseStateClicked = useCallback(() => {
     dispatch(onSetUseEffectActive(false));
+    dispatch(onSetUseCallbackActive(false));
+    dispatch(onSetUseRefActive(false));
     dispatch(onSetUseStateActive(!isUseStateClicked));
   }, [dispatch, isUseStateClicked]);
 
   const handleUseEffectClicked = useCallback(() => {
     dispatch(onSetUseStateActive(false));
+    dispatch(onSetUseCallbackActive(false));
+    dispatch(onSetUseRefActive(false));
     dispatch(onSetUseEffectActive(!isUseEffectClicked));
   }, [dispatch, isUseEffectClicked]);
+
+  const handleUseCallbackClicked = useCallback(() => {
+    dispatch(onSetUseStateActive(false));
+    dispatch(onSetUseEffectActive(false));
+    dispatch(onSetUseCallbackActive(!isUseCallbackClicked));
+  }, [dispatch, isUseCallbackClicked]);
+
+  const handleUseRefClicked = useCallback(() => {
+    dispatch(onSetUseStateActive(false));
+    dispatch(onSetUseEffectActive(false));
+    dispatch(onSetUseCallbackActive(false));
+    dispatch(onSetUseRefActive(!isUseRefClicked));
+  }, [dispatch, isUseRefClicked]);
   
   const handleClick = () => {
     console.log("clicked");
@@ -34,7 +58,7 @@ function SidebarComponent() {
     <Sidebar
       aria-label="Sidebar with content separator example"
       className={`w-72 ${
-        isUseStateClicked || isUseEffectClicked ? "h-auto" : "h-screen"
+        isUseStateClicked || isUseEffectClicked || isUseCallbackClicked || isUseRefClicked ? "h-auto" : "h-screen"
       } rounded-none border-none`}
     >
       <Sidebar.Items>
@@ -51,20 +75,14 @@ function SidebarComponent() {
           <Sidebar.Item href="#" icon={FaReact} onClick={handleUseEffectClicked}>
             <span className="text-[#673ab7]">useEffect</span>
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={FaReact} onClick={handleClick}>
+          <Sidebar.Item href="#" icon={FaReact} onClick={handleUseCallbackClicked}>
             <span className="text-[#673ab7]">useCallback</span>
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={FaReact} onClick={handleClick}>
+          <Sidebar.Item href="#" icon={FaReact} onClick={handleUseRefClicked}>
             <span className="text-[#673ab7]">useRef</span>
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={FaReact} onClick={handleClick}>
-            <span className="text-[#673ab7]">useLayoutEffect</span>
           </Sidebar.Item>
         </Sidebar.ItemGroup>
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="#" icon={TiDocumentText} onClick={handleClick}>
-            <span className="text-[#673ab7]">Docs</span>
-          </Sidebar.Item>
           <Sidebar.Item href="#" icon={FaRegUser} onClick={handleClick}>
             <span className="text-[#673ab7]"> About me</span>
           </Sidebar.Item>

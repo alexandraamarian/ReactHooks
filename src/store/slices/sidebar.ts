@@ -4,7 +4,9 @@ export const sidebarSlice = createSlice({
   name: 'sidebar',
   initialState: {
     isUseStateClicked: false,
-    isUseEffectClicked: false
+    isUseEffectClicked: false,
+    isUseCallbackClicked: false,
+    isUseRefClicked: false,
   },
   reducers: {
     onSetUseStateActive: (state, {payload} : {payload: boolean}) => {
@@ -12,10 +14,17 @@ export const sidebarSlice = createSlice({
     },
     onSetUseEffectActive: (state, {payload} : {payload: boolean}) => {
       state.isUseEffectClicked = payload
-    }
+    },
+    onSetUseCallbackActive: (state, {payload} : {payload: boolean}) => {
+      state.isUseCallbackClicked = payload
+    },
+    onSetUseRefActive: (state, {payload} : {payload: boolean}) => {
+      state.isUseRefClicked = payload
+    },
+
   },
 })
 
-export const { onSetUseStateActive, onSetUseEffectActive } = sidebarSlice.actions
+export const { onSetUseStateActive, onSetUseEffectActive, onSetUseCallbackActive, onSetUseRefActive } = sidebarSlice.actions
 
 export default sidebarSlice.reducer
