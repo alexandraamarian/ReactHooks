@@ -26,13 +26,13 @@ function ReactHooksApp() {
 
   return (
     <div className="flex flex-row">
-          <SidebarComponent />
+      <SidebarComponent />
 
-      <div className={`w-screen overflow-auto ${isUseStateClicked ||isUseEffectClicked || isUseCallbackClicked || isUseRefClicked?'bg-[#6227ca]':'bg-white'} `}>
-        {isUseStateClicked && <UseState/>}
+      <div className={`w-screen overflow-auto ${isUseStateClicked || isUseEffectClicked || isUseCallbackClicked || isUseRefClicked ? 'bg-[#6227ca]' : 'bg-white'} `}>
+        {isUseStateClicked && <UseState />}
         {isUseEffectClicked && <UseEffect />}
-        {isUseCallbackClicked && <UseCallback/>}
-        {isUseRefClicked && <UseRef/>}
+        {isUseCallbackClicked && <UseCallback />}
+        {isUseRefClicked && <UseRef />}
       </div>
     </div>
   );

@@ -1,7 +1,5 @@
 import { Sidebar } from "flowbite-react";
 import { FaReact } from "react-icons/fa";
-import { TiDocumentText } from "react-icons/ti";
-import { FaRegUser } from "react-icons/fa6";
 import { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store";
@@ -49,17 +47,12 @@ function SidebarComponent() {
     dispatch(onSetUseCallbackActive(false));
     dispatch(onSetUseRefActive(!isUseRefClicked));
   }, [dispatch, isUseRefClicked]);
-  
-  const handleClick = () => {
-    console.log("clicked");
-  };
 
   return (
     <Sidebar
       aria-label="Sidebar with content separator example"
-      className={`w-72 ${
-        isUseStateClicked || isUseEffectClicked || isUseCallbackClicked || isUseRefClicked ? "h-auto" : "h-screen"
-      } rounded-none border-none`}
+      className={`w-72 ${isUseStateClicked || isUseEffectClicked || isUseCallbackClicked || isUseRefClicked ? "h-auto" : "h-screen"
+        } rounded-none border-none`}
     >
       <Sidebar.Items>
         <div>
@@ -80,11 +73,6 @@ function SidebarComponent() {
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={FaReact} onClick={handleUseRefClicked}>
             <span className="text-[#673ab7]">useRef</span>
-          </Sidebar.Item>
-        </Sidebar.ItemGroup>
-        <Sidebar.ItemGroup>
-          <Sidebar.Item href="#" icon={FaRegUser} onClick={handleClick}>
-            <span className="text-[#673ab7]"> About me</span>
           </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>

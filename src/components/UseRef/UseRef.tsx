@@ -35,7 +35,7 @@ function UseRef() {
     <div className="max-w-full ml-2 p-6 bg-white shadow-md">
       <h1 className="font-bold text-3xl text-gray-800 mb-6">useRef</h1>
       <p className="text-gray-700 mb-8">
-        <strong>useRef</strong> is a React Hook that lets you create a mutable object which persists across renders.
+        <strong>useRef</strong> is a React Hook that lets you reference a value that’s not needed for rendering.
       </p>
 
       <div className="mb-8 mt-8">
@@ -148,7 +148,7 @@ function Example() {
           </li>
         </ul>
       </div>
-      
+
       <div>
         <h2 className="font-bold text-xl text-gray-800 mb-4">Returns</h2>
         <p className="text-gray-700 mb-2">
